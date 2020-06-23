@@ -30,4 +30,17 @@ function createBlog(req, res) {
     res.end("You need to add a valid title and content");
   }
 }
+//UPDATE POST
+function updateBlog(req, res) {
+  const title = req.params.title;
+  const content = req.params.content;
+  if (fs.existsSync(title)) {
+    fs.writeFileSync(title, content);
+    res.end("OK");
+  } else {
+    res.status(404);
+    res.end("Blog Post Does Not Exist");
+  }
+}
+  
 
