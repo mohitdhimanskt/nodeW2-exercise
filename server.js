@@ -1,76 +1,51 @@
-const express = require("express");
+const express = require('express');
+const fs = require ('fs');
 const app = express();
-const fs = require("fs");
-const path = require("path");
+const port = 3000;
 
-//GET ALL
-function getBlogs(req, res) {}  // I couldn't find the right way to list all the blogs
-// I tried readdir etc. but didn't work:(
 
-//GET ONE
-function getOneBlog(req, res) {
-  // How to get the tilte from the url parameters?
-  const title = req.params.title;
-  if (fs.existsSync(title)) {
-    res.sendFile(path.join(__dirname, title));
-  } else {
-    res.statusCode = 404;
-    res.end("Blog Post Does Not Exist");
-  }
-}
-//CREATE POST
-function createBlog(req, res) {
-  if (isValid) {
-    const title = req.body.title;
-    const content = req.body.content;
-    fs.writeFileSync(title, content);
-    res.end("OK");
-  } else {
-    res.status(400);
-    res.end("You need to add a valid title and content");
-  }
-}
-//UPDATE POST
-function updateBlog(req, res) {
-  const title = req.params.title;
-  const content = req.params.content;
-  if (fs.existsSync(title)) {
-    fs.writeFileSync(title, content);
-    res.end("OK");
-  } else {
-    res.status(404);
-    res.end("Blog Post Does Not Exist");
-  }
-}
-  //DELETE POST
-function deleteBlog(req, res) {
-  const title = req.params.title;
-  if (fs.existsSync(title)) {
-    fs.unlinkSync(title);
-    res.end("OK");
-  } else {
-    res.status(404);
-    res.end("Blog Post Does Not Exist");
-  }
-}
+app.use(express.json());
 
-//CHECK VALIDITY
-function isValid(req) {
-  if (
-    typeof req.body == "undefined" ||
-    typeof req.body.title == "undefined" ||
-    typeof req.body.content == "undefined"
-  ) {
-    return false;
-  } else {
-    return true;
-  }
-}
-module.exports = {
-  getBlogs,
-  getOneBlog,
-  createBlog,
-  deleteBlog,
-  updateBlog
-};
 
+// creating blog, checking what was req from the client (using Postman to check for now)
+//fs.writeFileSync(file, data[, options])
+app.post('/blogs', (req, res) => {
+  fs.writeFileSync(__dirname +`/blogs/${req.body.title}.txt`, req.body.content);
+  res.end('uploaded')
+})
+
+//updating a post. 
+app.put('/blogs', (req, res) => {
+  const fileSearched=__dirname + `/blogs/${req.body.title}.txt`
+  if (fs.existsSync(fileSearched)) {
+    fs.writeFileSync(fileSearched, req.body.content);
+    res.end('Updated')
+  }else {
+    res.end('post does not exist');
+  }
+})
+
+//deleting a post.
+app.delete('/blogs/:title', (req, res) => {
+  const fileSearched=__dirname + `/blogs/${req.params.title}.txt`
+  if (fs.existsSync(fileSearched)) {
+    fs.unlinkSync(fileSearched)
+    res.end('Deleted')
+  } else{
+    res.end('post does not exist');
+  }
+})
+
+//getting a post.
+app.get('/blogs/:title', (req, res) => {
+  const fileSearched=__dirname + `/blogs/${req.params.title}.txt`
+  if (fs.existsSync(fileSearched)) {
+    res.sendfile(fileSearched);
+  } else{
+    res.end('post does not exist');
+  }
+})
+
+app.listen(port, () => {
+  console.log(`Server is running on ${port}`)
+}) 
