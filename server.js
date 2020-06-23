@@ -66,5 +66,11 @@ function isValid(req) {
     return true;
   }
 }
-
+module.exports = {
+  getBlogs,
+  getOneBlog,
+  createBlog,
+  deleteBlog,
+  updateBlog
+};
 
