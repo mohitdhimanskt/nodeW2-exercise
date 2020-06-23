@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/mohitdhimanskt/nodeW2-exercise/issues"
   },
-  "homepage": "https://github.com/mohitdhimanskt/nodeW2-exercise#readme"
+  "homepage": "https://github.com/mohitdhimanskt/nodeW2-exercise#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
 }
