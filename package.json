@@ -1,0 +1,20 @@
+{
+  "name": "blog-api",
+  "version": "1.0.0",
+  "description": "Exercise 1: Make a blog API",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mohitdhimanskt/nodeW2-exercise.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mohitdhimanskt/nodeW2-exercise/issues"
+  },
+  "homepage": "https://github.com/mohitdhimanskt/nodeW2-exercise#readme"
+}
