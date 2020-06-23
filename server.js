@@ -54,3 +54,17 @@ function deleteBlog(req, res) {
   }
 }
 
+//CHECK VALIDITY
+function isValid(req) {
+  if (
+    typeof req.body == "undefined" ||
+    typeof req.body.title == "undefined" ||
+    typeof req.body.content == "undefined"
+  ) {
+    return false;
+  } else {
+    return true;
+  }
+}
+
+
