@@ -42,5 +42,15 @@ function updateBlog(req, res) {
     res.end("Blog Post Does Not Exist");
   }
 }
-  
+  //DELETE POST
+function deleteBlog(req, res) {
+  const title = req.params.title;
+  if (fs.existsSync(title)) {
+    fs.unlinkSync(title);
+    res.end("OK");
+  } else {
+    res.status(404);
+    res.end("Blog Post Does Not Exist");
+  }
+}
 
