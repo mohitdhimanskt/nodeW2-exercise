@@ -18,3 +18,16 @@ function getOneBlog(req, res) {
     res.end("Blog Post Does Not Exist");
   }
 }
+//CREATE POST
+function createBlog(req, res) {
+  if (isValid) {
+    const title = req.body.title;
+    const content = req.body.content;
+    fs.writeFileSync(title, content);
+    res.end("OK");
+  } else {
+    res.status(400);
+    res.end("You need to add a valid title and content");
+  }
+}
+
